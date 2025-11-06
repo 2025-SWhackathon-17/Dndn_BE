@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,8 +23,9 @@ public class IncidentController implements IncidentApiDocument {
 
     @Override
     @ResponseStatus(HttpStatus.CREATED)
-    public void createIncident(@ModelAttribute @Valid IncidentRequest request) {
-        createIncidentService.execute(request);
+    public void createIncident(@RequestPart(name = "request") @Valid IncidentRequest request,
+                               @RequestPart(name = "file") MultipartFile incidentImage) {
+        createIncidentService.execute(request, incidentImage);
     }
 
     @Override
@@ -40,12 +42,14 @@ public class IncidentController implements IncidentApiDocument {
 
     @Override
     @ResponseStatus(HttpStatus.OK)
-    public void updateIncident(@PathVariable("incident-id") Long incidentId, @ModelAttribute @Valid IncidentRequest request) {
-        updateIncidentService.execute(incidentId, request);
+    public void updateIncident(@PathVariable("incident-id") Long incidentId,
+                               @RequestPart(name = "request") @Valid IncidentRequest request,
+                               @RequestPart(name = "file") MultipartFile incidentImage) {
+        updateIncidentService.execute(incidentId, request,  incidentImage);
     }
 
     @Override
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteIncident(@PathVariable("incident-id") Long incidentId) {
         deleteIncidentService.execute(incidentId);
     }

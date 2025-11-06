@@ -9,6 +9,7 @@ import com.example.dndn_be.infrastructure.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -18,17 +19,17 @@ public class CreateIncidentService {
     private final S3Service s3Service;
 
     @Transactional
-    public void execute(IncidentRequest request) {
+    public void execute(IncidentRequest request, MultipartFile incidentImage) {
         User user = userFacade.getCurrentUser();
 
-        String incidentImage = s3Service.upload(request.getIncidentImage());
+        String incidentUrl = s3Service.upload(incidentImage);
 
         incidentRepository.save(Incident.builder()
                 .incidentTitle(request.getIncidentTitle())
                 .description(request.getDescription())
                 .latitude(request.getLatitude())
                 .longitude(request.getLongitude())
-                .incidentImage(incidentImage)
+                .incidentImage(incidentUrl)
                 .user(user)
                 .build());
     }

@@ -3,7 +3,6 @@ package com.example.dndn_be.domain.incident.dto.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 public class IncidentRequest {
@@ -19,6 +18,4 @@ public class IncidentRequest {
 
     @NotNull
     private Double longitude;
-
-    private MultipartFile incidentImage;
 }

@@ -10,6 +10,7 @@ import com.example.dndn_be.infrastructure.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -19,15 +20,15 @@ public class UpdateIncidentService {
     private final S3Service s3Service;
 
     @Transactional
-    public void execute(Long incidentId, IncidentRequest request) {
+    public void execute(Long incidentId, IncidentRequest request, MultipartFile incidentImage) {
         User user = userFacade.getCurrentUser();
 
         Incident incident = incidentRepository.findById(incidentId)
                 .orElseThrow(() -> IncidentNotFoundException.EXCEPTION);
 
-        String incidentImage = s3Service.upload(request.getIncidentImage());
+        String incidentUrl = s3Service.upload(incidentImage);
 
         incident.update(request.getIncidentTitle(), request.getDescription(),
-                request.getLatitude(), request.getLongitude(), incidentImage);
+                request.getLatitude(), request.getLongitude(), incidentUrl);
     }
 }
