@@ -20,6 +20,7 @@ public enum ErrorCode {
     USER_MISMATCH(401, "유저가 일치 하지 않습니다."),
     PASSWORD_MISMATCH(401, "비밀 번호가 일치 하지 않습니다."),
     INVALID_USER(401, "유효 하지 않은 사용자입니다."),
+    EXIST_USER(409, "이미 존재하는 유저입니다"),
 
     //s3
     IMAGE_NOT_FOUND(404, "이미지를 찾을 수 없음"),
