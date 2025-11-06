@@ -23,7 +23,7 @@ public enum ErrorCode {
     EXIST_USER(409, "이미 존재하는 유저입니다"),
 
     //incident
-    INCIDENT_NOT_FOUND(404, "든든일지를 찾을 수 없습니다.");
+    INCIDENT_NOT_FOUND(404, "든든일지를 찾을 수 없습니다."),
 
     //s3
     IMAGE_NOT_FOUND(404, "이미지를 찾을 수 없음"),
