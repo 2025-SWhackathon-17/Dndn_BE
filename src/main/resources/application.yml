@@ -5,9 +5,6 @@ spring:
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  jackson:
-    property-naming-strategy: SNAKE_CASE
-
   jpa:
     hibernate:
       ddl-auto: ${JPA_HIBERNATE_DDL_AUTO}
@@ -31,7 +28,7 @@ cloud:
   aws:
     s3:
       bucket: ${BUCKET_NAME}
-      url-prefix: ${Dndn_IMAGE_FOLDER}
+      url-prefix: ${DNDN_IMAGE_FOLDER}
     region:
       static: ${AWS_REGION}
     stack:
