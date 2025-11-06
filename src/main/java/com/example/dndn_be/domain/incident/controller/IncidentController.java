@@ -3,6 +3,7 @@ package com.example.dndn_be.domain.incident.controller;
 import com.example.dndn_be.domain.incident.dto.request.IncidentRequest;
 import com.example.dndn_be.domain.incident.dto.response.IncidentResponse;
 import com.example.dndn_be.domain.incident.service.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/incident")
 @RequiredArgsConstructor
@@ -38,6 +40,7 @@ public class IncidentController implements IncidentApiDocument {
     @ResponseStatus(HttpStatus.OK)
     public List<IncidentResponse> queryAllIncident() {
         return queryAllIncidentService.execute();
+
     }
 
     @Override

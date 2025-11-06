@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,11 @@ import java.util.List;
 @Tag(name = "incident", description = "든든일지 관련 API")
 public interface IncidentApiDocument {
 
-    @Operation(summary = "든든일지 생성", description = "새로운 든든일지를 등록합니다.")
+    @Operation(
+            summary = "든든일지 생성",
+            description = "새로운 든든일지를 등록합니다.",
+            security = {@SecurityRequirement(name = "bearerAuth")}
+    )
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "사건 등록 성공"),
             @ApiResponse(responseCode = "500", description = "서버 내부 오류",
@@ -32,7 +37,9 @@ public interface IncidentApiDocument {
     void createIncident(@RequestPart(name = "request") @Valid IncidentRequest request,
                         @RequestPart(name = "file") MultipartFile incidentImage);
 
-    @Operation(summary = "든든일지 상세 조회", description = "특정 ID의 든든일지 정보를 조회합니다.")
+    @Operation(summary = "든든일지 상세 조회",
+            description = "특정 ID의 든든일지 정보를 조회합니다.",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "조회 성공",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -45,7 +52,9 @@ public interface IncidentApiDocument {
     @ResponseStatus(HttpStatus.OK)
     IncidentResponse queryIncident(@PathVariable("incident-id") Long incidentId);
 
-    @Operation(summary = "모든 든든일지 조회", description = "등록된 모든 든든일지를 조회합니다.")
+    @Operation(summary = "모든 든든일지 조회",
+            description = "등록된 모든 든든일지를 조회합니다.",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "조회 성공",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -55,7 +64,9 @@ public interface IncidentApiDocument {
     @ResponseStatus(HttpStatus.OK)
     List<IncidentResponse> queryAllIncident();
 
-    @Operation(summary = "든든일지 수정", description = "특정 ID의 든든일지 정보를 수정합니다.")
+    @Operation(summary = "든든일지 수정",
+            description = "특정 ID의 든든일지 정보를 수정합니다.",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "수정 성공"),
             @ApiResponse(responseCode = "404", description = "존재하지 않는 사건",
@@ -68,7 +79,9 @@ public interface IncidentApiDocument {
                         @RequestPart(name = "request") @Valid IncidentRequest request,
                         @RequestPart(name = "file") MultipartFile incidentImage);
 
-    @Operation(summary = "든든일지 삭제", description = "특정 ID의 든든일지를 삭제합니다.")
+    @Operation(summary = "든든일지 삭제",
+            description = "특정 ID의 든든일지를 삭제합니다.",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "삭제 성공"),
             @ApiResponse(responseCode = "404", description = "존재하지 않는 사건",
