@@ -1,7 +1,9 @@
 package com.example.dndn_be.domain.incident.controller;
 
 import com.example.dndn_be.domain.incident.dto.request.IncidentRequest;
+import com.example.dndn_be.domain.incident.dto.response.IncidentResponse;
 import com.example.dndn_be.domain.incident.service.CreateIncidentService;
+import com.example.dndn_be.domain.incident.service.QueryIncidentDetailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,10 +14,17 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class IncidentController {
     private final CreateIncidentService createIncidentService;
+    private final QueryIncidentDetailService queryIncidentDetailService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createIncident(@RequestBody @Valid IncidentRequest request) {
         createIncidentService.execute(request);
+    }
+
+    @GetMapping("/{incident-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public IncidentResponse queryIncident(@PathVariable("incident-id") Long incidentId) {
+        return queryIncidentDetailService.execute(incidentId);
     }
 }
