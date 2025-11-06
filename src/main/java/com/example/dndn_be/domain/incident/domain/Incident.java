@@ -31,4 +31,13 @@ public class Incident {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user-id")
     private User user;
+
+    public void update(String incidentTitle, String description,
+                       Double latitude, Double longitude, String incidentImage) {
+        this.incidentTitle = incidentTitle;
+        this.description = description;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.incidentImage = incidentImage;
+    }
 }
