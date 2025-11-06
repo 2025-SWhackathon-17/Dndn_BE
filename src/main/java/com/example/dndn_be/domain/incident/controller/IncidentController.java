@@ -13,38 +13,38 @@ import java.util.List;
 @RestController
 @RequestMapping("/incident")
 @RequiredArgsConstructor
-public class IncidentController {
+public class IncidentController implements IncidentApiDocument {
     private final CreateIncidentService createIncidentService;
     private final QueryIncidentDetailService queryIncidentDetailService;
     private final QueryAllIncidentService queryAllIncidentService;
     private final UpdateIncidentService updateIncidentService;
     private final DeleteIncidentService deleteIncidentService;
 
-    @PostMapping
+    @Override
     @ResponseStatus(HttpStatus.CREATED)
     public void createIncident(@RequestBody @Valid IncidentRequest request) {
         createIncidentService.execute(request);
     }
 
-    @GetMapping("/{incident-id}")
+    @Override
     @ResponseStatus(HttpStatus.OK)
     public IncidentResponse queryIncident(@PathVariable("incident-id") Long incidentId) {
         return queryIncidentDetailService.execute(incidentId);
     }
 
-    @GetMapping
+    @Override
     @ResponseStatus(HttpStatus.OK)
     public List<IncidentResponse> queryAllIncident() {
         return queryAllIncidentService.execute();
     }
 
-    @PatchMapping("/{incident-id}")
+    @Override
     @ResponseStatus(HttpStatus.OK)
     public void updateIncident(@PathVariable("incident-id") Long incidentId, @RequestBody @Valid IncidentRequest request) {
         updateIncidentService.execute(incidentId, request);
     }
 
-    @DeleteMapping("/{incident-id}")
+    @Override
     @ResponseStatus(HttpStatus.OK)
     public void deleteIncident(@PathVariable("incident-id") Long incidentId) {
         deleteIncidentService.execute(incidentId);
