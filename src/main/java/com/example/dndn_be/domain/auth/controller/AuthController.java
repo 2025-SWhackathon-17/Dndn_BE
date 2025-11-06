@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements AuthApiDocument {
     private final SignupService signupService;
     private final LoginService loginService;
 
-    @PostMapping("/sign-up")
+    @Override
     @ResponseStatus(HttpStatus.CREATED)
     public void signup(@RequestBody @Valid SignupRequest request) {
         signupService.execute(request);
     }
 
-    @PostMapping("/login")
+    @Override
     @ResponseStatus(HttpStatus.OK)
     public TokenResponse login(@RequestBody @Valid LoginRequest request) {
         return loginService.execute(request);
