@@ -32,7 +32,7 @@ public interface IncidentApiDocument {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    void createIncident(@RequestBody @Valid IncidentRequest request);
+    void createIncident(@ModelAttribute @Valid IncidentRequest request);
 
     @Operation(summary = "든든일지 상세 조회", description = "특정 ID의 든든일지 정보를 조회합니다.")
     @ApiResponses({
@@ -70,7 +70,7 @@ public interface IncidentApiDocument {
     @PatchMapping("/{incident-id}")
     @ResponseStatus(HttpStatus.OK)
     void updateIncident(@PathVariable("incident-id") Long incidentId,
-                        @RequestBody @Valid IncidentRequest request);
+                        @ModelAttribute @Valid IncidentRequest request);
 
     @Operation(summary = "든든일지 삭제", description = "특정 ID의 든든일지를 삭제합니다.")
     @ApiResponses({

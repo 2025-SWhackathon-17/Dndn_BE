@@ -22,7 +22,7 @@ public class IncidentController implements IncidentApiDocument {
 
     @Override
     @ResponseStatus(HttpStatus.CREATED)
-    public void createIncident(@RequestBody @Valid IncidentRequest request) {
+    public void createIncident(@ModelAttribute @Valid IncidentRequest request) {
         createIncidentService.execute(request);
     }
 
@@ -40,7 +40,7 @@ public class IncidentController implements IncidentApiDocument {
 
     @Override
     @ResponseStatus(HttpStatus.OK)
-    public void updateIncident(@PathVariable("incident-id") Long incidentId, @RequestBody @Valid IncidentRequest request) {
+    public void updateIncident(@PathVariable("incident-id") Long incidentId, @ModelAttribute @Valid IncidentRequest request) {
         updateIncidentService.execute(incidentId, request);
     }
 
